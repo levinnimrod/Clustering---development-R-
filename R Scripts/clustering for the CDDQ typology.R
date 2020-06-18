@@ -23,11 +23,13 @@ sample2 <- (sample2[, c(4:5, 8:11, 48:50, 52:55, 57:59, 61)]) %>% round(2)
 
 ####################      RUN MIXTURE MODEL CLUSTERING                ####################
 # create ipsative scores for each participant
-data <- sample1[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.frame()
+ipsative1 <- sample1[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.frame()
+ipsative2 <- sample2[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.frame()
 
 # get best estimate of loglikelihood from previous iteration
-url <- file.choose(); source(url)
-result <- typology(data = data, n_groups = 4, sample = 1, iterations = 5); 
-
+url <- file.choose(); source(url); remove(url)
+result1 <- typology(data = ipsative1, n_groups = 4, sample = 1, iterations = 200)
+result2 <- typology(data = ipsative2, n_groups = 4, sample = 2, iterations = 200)
+ 
 
 
