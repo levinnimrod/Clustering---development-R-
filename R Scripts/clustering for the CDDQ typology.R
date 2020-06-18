@@ -27,7 +27,7 @@ data <- sample1[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.frame()
 
 # get best estimate of loglikelihood from previous iteration
 url <- file.choose(); source(url)
-result <- typology(data = data, n_groups = 4, sample = 1, iterations = 5)
+result <- typology(data = data, n_groups = 4, sample = 1, iterations = 5); 
 
 
 
