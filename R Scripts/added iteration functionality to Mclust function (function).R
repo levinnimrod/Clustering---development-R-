@@ -11,7 +11,7 @@ typology <- function(data, n_groups, sample, iterations) {
   
   # run mclust to check for better solutions
   for (i in seq(iterations)) {
-    print(paste0("Iteration #", i, " for sample #", sample, ' and groups = ', n_groups))
+    print(paste0("Iteration #", i + total_iteration[n_groups, sample], " for sample #", sample, ' and groups = ', n_groups))
     i = i + 1
     result <- Mclust(data, G = n_groups, modelNames = 'VEV')
     
@@ -38,11 +38,8 @@ typology <- function(data, n_groups, sample, iterations) {
   
   # save the results only if there is a new optimal result
   if (new == 1) {
-  write.csv(best_save, file = paste0('z and classificaiton for sample ', sample, ' with groups ', n_groups,' ll = ', round(best$loglik,2), ' bic = ', round(best$bic,2)))
+  write.csv(best_save, file = paste0('Clustering results\\z and classificaiton for sample ', sample, ' with groups ', n_groups))
     best 
   }
   else NA
-  
-  
-  
 }

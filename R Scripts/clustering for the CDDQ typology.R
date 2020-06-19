@@ -28,8 +28,11 @@ ipsative2 <- sample2[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.fram
 
 # get best estimate of loglikelihood from previous iteration
 url <- file.choose(); source(url); remove(url)
-result1 <- typology(data = ipsative1, n_groups = 2, sample = 1, iterations = 3)
-result2 <- typology(data = ipsative2, n_groups = 2, sample = 2, iterations = 10)
+
+for (i in seq(2, 10)) {
+result1 <- typology(data = ipsative1, n_groups = i, sample = 1, iterations = 1)
+result2 <- typology(data = ipsative2, n_groups = i, sample = 2, iterations = 1)
+}
  
 
 
