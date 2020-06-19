@@ -2,7 +2,8 @@
 typology <- function(data, n_groups, sample, iterations) {
   i = 1
   # Get the optimal loglikelihood and total iterations so far
-  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
+#  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
+  setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
   ll <- read.csv('optimal loglikelihood')[,-1]
   total_iteration = read.csv('total iterations')[-1]
   
