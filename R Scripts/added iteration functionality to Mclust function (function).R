@@ -17,9 +17,7 @@ typology <- function(data, n_groups, sample, iterations) {
     i = i + 1
     result <- Mclust(data, G = n_groups, modelNames = 'VEV')
     
-    if (result$loglik == ll[n_groups, sample]) {print("Replication of minimal ll")}
-    
-    if (result$loglik > ll[n_groups, sample]) {
+    if (result$loglik >= ll[n_groups, sample]) {
       
       # compute the difference for the new best ll compared to previous
       ll[n_groups, sample + 6] = ll[n_groups, sample + 2]
