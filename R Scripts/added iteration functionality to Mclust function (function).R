@@ -25,6 +25,7 @@ typology <- function(data, n_groups, sample, iterations) {
       ll[n_groups, sample + 2] = i + total_iteration[n_groups, sample] - 1
       ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(2)
       ll[n_groups, sample + 8] = result$modelName
+      ll[n_groups, sample + 10] = result$df
       
       # save the new best results
       best = result
@@ -52,5 +53,6 @@ typology <- function(data, n_groups, sample, iterations) {
   }
   else NA
 }
+
 
 
