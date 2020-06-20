@@ -15,7 +15,9 @@ results <- as.data.frame(results);
 results$profiles <- c(rep(2:10,2)); colnames(results) <- c('Sample', 'Profiles')
 
 # extract the log-likelihood values
-results$LL <- rbind(read.csv('..\\optimal loglikelihood')[2], read.csv('..\\optimal loglikelihood')[2])[c(-1,-11), ]
+results$LL = NA
+results$LL[1:9] <- read.csv('..\\optimal loglikelihood')[-1, 2]
+results$LL[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 3]
 
 # set the relevant degrees of freedom
 results$df = rep(c(122, 179, 236, 293, 350, 407, 464, 521, 578),2)
