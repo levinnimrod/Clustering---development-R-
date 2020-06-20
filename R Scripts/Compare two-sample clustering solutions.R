@@ -56,22 +56,22 @@ results <- t(results) %>% as.data.frame;
 arrange(results, desc(total)) %>% t
 
  ####################      COMPUTE THE MEAN OF THE MAXIMUM DIFFERENCE BETWEEN SAMPLES ACROSS THE 10 SCORES                ####################
-results = rep(NA, 12) %>% as.data.frame()
-
-for (i in seq(9)) {
-
-results[, i] = 
-# Exctract the mean values of the variables for the clustering groups from sample 1
-(aggregate(sample1[, 7:17], by = as.data.frame(classifications[names[i]]), FUN = mean) %>% round(2) %>%
-        arrange(desc(total)) - 
-# then substract the mean values of the variables for the clustering groups from sample 2 (get the absolute values)
-aggregate(sample2[, 7:17], by = as.data.frame(classifications[names[i + 9]]), FUN = mean) %>%
-  arrange(desc(total))) %>% abs %>%
-  
-  apply(2, max) %>% round(2)
-
-}
-results <- results[-1, ] %>% as.data.frame()
-rownames(results) <- colnames(sample1[, 7:17]); colnames(results) <- c(seq(2, 10))
-results  
-results[1:10,] %>% colMeans() %>% round(2)
+# results = rep(NA, 12) %>% as.data.frame()
+# 
+# for (i in seq(9)) {
+# 
+# results[, i] = 
+# # Exctract the mean values of the variables for the clustering groups from sample 1
+# (aggregate(sample1[, 7:17], by = as.data.frame(classifications[names[i]]), FUN = mean) %>% round(2) %>%
+#         arrange(desc(total)) - 
+# # then substract the mean values of the variables for the clustering groups from sample 2 (get the absolute values)
+# aggregate(sample2[, 7:17], by = as.data.frame(classifications[names[i + 9]]), FUN = mean) %>%
+#   arrange(desc(total))) %>% abs %>%
+#   
+#   apply(2, max) %>% round(2)
+# 
+# }
+# results <- results[-1, ] %>% as.data.frame()
+# rownames(results) <- colnames(sample1[, 7:17]); colnames(results) <- c(seq(2, 10))
+# results  
+# results[1:10,] %>% colMeans() %>% round(2)

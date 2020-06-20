@@ -21,7 +21,7 @@ results$LL[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 3]
 
 # set the relevant degrees of freedom
 results$df[1:9] = read.csv('..\\optimal loglikelihood')[-1, 12]
-results$LL[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 13]
+results$df[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 13]
 
 # Set sample size
 n = nrow(ldf[[1]]['best.classification'])
