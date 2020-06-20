@@ -16,7 +16,7 @@ typology <- function(data, n_groups, sample, iterations) {
     print(paste0("Iteration #", i + total_iteration[n_groups, sample], " for sample #", sample, ' and groups = ', n_groups))
     i = i + 1
   #  mclust.options(subset = 600)
-    result <- Mclust(data, G = n_groups, modelNames = 'EII')
+    result <- Mclust(data, G = n_groups)
     
     if (result$loglik >= ll[n_groups, sample]) {
       
@@ -24,6 +24,7 @@ typology <- function(data, n_groups, sample, iterations) {
       ll[n_groups, sample + 6] = ll[n_groups, sample + 2]
       ll[n_groups, sample + 2] = i + total_iteration[n_groups, sample] - 1
       ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(2)
+      ll[n_groups, sample + 8] = result$modelName
       
       # save the new best results
       best = result
@@ -51,4 +52,5 @@ typology <- function(data, n_groups, sample, iterations) {
   }
   else NA
 }
+
 
