@@ -40,20 +40,20 @@ colnames(classifications) <- paste0("S", c(rep(1,9), rep(2, 9)), "_G", seq(2,10)
 names <- c(paste0('S1_G', 2:10), paste0('S2_G', 2:10))
 
 # define which two solutions you want to compare (i = ?)
-# i = 5
-# 
-# results = cbind(
-# # Exctract the mean values of the variables for the clustering groups from sample 1
-# aggregate(sample1[, 7:17], by = as.data.frame(classifications[names[i-1]]), FUN = mean) %>% round(2) %>%
-#        arrange(desc(total)) %>% t,
-# 
-# # Exctract the mean values of the variables for the clustering groups from sample 2
-# aggregate(sample2[, 7:17], by = as.data.frame(classifications[names[i - 1 + 9]]), FUN = mean) %>% round(2) %>%
-#        arrange(desc(total)) %>% t)   %>% as.data.frame()
-# 
-# results[1, ] <- c(rep(1, i), rep(2, i));
-# results <- t(results) %>% as.data.frame;
-# arrange(results, desc(total)) %>% t
+i = 4
+
+results = cbind(
+# Exctract the mean values of the variables for the clustering groups from sample 1
+aggregate(sample1[, 7:17], by = as.data.frame(classifications[names[i-1]]), FUN = mean) %>% round(2) %>%
+       arrange(desc(total)) %>% t,
+
+# Exctract the mean values of the variables for the clustering groups from sample 2
+aggregate(sample2[, 7:17], by = as.data.frame(classifications[names[i - 1 + 9]]), FUN = mean) %>% round(2) %>%
+       arrange(desc(total)) %>% t)   %>% as.data.frame()
+
+results[1, ] <- c(rep(1, i), rep(2, i));
+results <- t(results) %>% as.data.frame;
+arrange(results, desc(total)) %>% t
 
 ####################      COMPUTE THE MEAN OF THE MAXIMUM DIFFERENCE BETWEEN SAMPLES ACROSS THE 10 SCORES                ####################
 results = rep(NA, 12) %>% as.data.frame()
@@ -75,5 +75,12 @@ results <- results[-1, ] %>% as.data.frame()
 rownames(results) <- colnames(sample1[, 7:17]); colnames(results) <- c(seq(2, 10))
 results  
 results[1:10,] %>% colMeans() %>% round(2)
+
+colnames(sample1)
+sol <- Mclust(sample1[,7:16], G = 4)
+MclustBootstrap(sol, nboot = 20) %>% summary
+sol <- mclustBootstrapLRT(sample[,7:16])
+mclustBootstrapLRT(sample1[,7:16], model = 'VEV', nboot = 100)
+mclustBootstrapLRT(sample2[,7:16], model = 'VEV', nboot = 100)
 
 
