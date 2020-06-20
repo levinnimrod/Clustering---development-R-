@@ -15,8 +15,8 @@ typology <- function(data, n_groups, sample, iterations) {
   for (i in seq(iterations)) {
     print(paste0("Iteration #", i + total_iteration[n_groups, sample], " for sample #", sample, ' and groups = ', n_groups))
     i = i + 1
-    mclust.options(subset = 600)
-    result <- Mclust(data, G = n_groups, modelNames = 'VEV')
+  #  mclust.options(subset = 600)
+    result <- Mclust(data, G = n_groups, modelNames = 'EII')
     
     if (result$loglik >= ll[n_groups, sample]) {
       
