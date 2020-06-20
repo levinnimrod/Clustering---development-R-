@@ -1,9 +1,10 @@
-# this function runs 
 typology <- function(data, n_groups, sample, iterations) {
   i = 1
-  # Get the optimal loglikelihood and total iterations so far
-#  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
-  setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
+
+  #  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
+  #  setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
+  
+# Get the optimal log-likelihood and total iterations so far
   ll <- read.csv('optimal loglikelihood')[,-1]
   total_iteration = read.csv('total iterations')[-1]
   
@@ -19,6 +20,11 @@ typology <- function(data, n_groups, sample, iterations) {
     if (result$loglik == ll[n_groups, sample]) {print("Replication of minimal ll")}
     
     if (result$loglik > ll[n_groups, sample]) {
+      
+      # compute the difference for the new best ll compared to previous
+      ll[n_groups, sample + 2] = result$loglik-ll[n_groups, sample]
+      
+      # save the new best results
       best = result
 
       ll[n_groups, sample] <- result$loglik %>% round(2) # update ll value in table 
