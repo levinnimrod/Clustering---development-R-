@@ -2,7 +2,7 @@ typology <- function(data, n_groups, sample, iterations) {
   i = 1
 
   #  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
-  #  setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
+    setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
   
 # Get the optimal log-likelihood and total iterations so far
   ll <- read.csv('optimal loglikelihood')[,-1]
@@ -22,7 +22,9 @@ typology <- function(data, n_groups, sample, iterations) {
     if (result$loglik > ll[n_groups, sample]) {
       
       # compute the difference for the new best ll compared to previous
-      ll[n_groups, sample + 2] = result$loglik-ll[n_groups, sample]
+      ll[n_groups, sample + 6] = ll[n_groups, sample + 2]
+      ll[n_groups, sample + 2] = i + total_iteration[n_groups, sample] - 1
+      ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(2)
       
       # save the new best results
       best = result
@@ -45,8 +47,9 @@ typology <- function(data, n_groups, sample, iterations) {
   
   # save the results only if there is a new optimal result
   if (new == 1) {
-  write.csv(best_save, file = paste0('Clustering results\\z and classificaiton for sample ', sample, ' with groups ', n_groups))
+  write.csv(best_save, file = paste0('Clustering results/z and classificaiton for sample ', sample, ' with groups ', n_groups))
     best 
   }
   else NA
 }
+
