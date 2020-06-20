@@ -20,11 +20,12 @@ results$LL[1:9] <- read.csv('..\\optimal loglikelihood')[-1, 2]
 results$LL[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 3]
 
 # set the relevant degrees of freedom
-results$df = rep(c(122, 179, 236, 293, 350, 407, 464, 521, 578),2)
+results$df[1:9] = read.csv('..\\optimal loglikelihood')[-1, 12]
+results$LL[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 13]
 
 # Set sample size
 n = nrow(ldf[[1]]['best.classification'])
-
+  
 ####################     CALCULATE THE LRT p-values                ####################
 
 results$LRTp = NA
