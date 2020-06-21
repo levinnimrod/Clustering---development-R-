@@ -8,6 +8,7 @@ typology <- function(data, n_groups, sample, iterations) {
   ll <- read.csv('optimal loglikelihood')[,-1]
   total_iteration = read.csv('total iterations')[-1]
   
+  if (total_iteration[n_groups, sample] <= 5000) {
   # to control for a new optimal result
   new = 0
   
@@ -49,6 +50,7 @@ typology <- function(data, n_groups, sample, iterations) {
   # save the results only if there is a new optimal result
   if (new == 1) {
   write.csv(best_save, file = paste0('Clustering results/z and classificaiton for sample ', sample, ' with groups ', n_groups))
+  }
   }
 }
 
