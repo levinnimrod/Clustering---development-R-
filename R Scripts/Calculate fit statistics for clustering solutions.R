@@ -16,21 +16,21 @@ results$profiles <- c(rep(2:10,2)); colnames(results) <- c('Sample', 'Profiles')
 
 # extract the log-likelihood values
 results$LL = NA
-results$LL[1:9] <- read.csv('..\\optimal loglikelihood')[-1, 2]
-results$LL[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 3]
+results$LL[1:9] <- read.csv('..\\maximum loglikelihood')[-1, 2]
+results$LL[10:18] <- read.csv('..\\maximum loglikelihood')[-1, 3]
 
 # set the relevant degrees of freedom
-results$df[1:9] = read.csv('..\\optimal loglikelihood')[-1, 12]
-results$df[10:18] <- read.csv('..\\optimal loglikelihood')[-1, 13]
+results$df<- rep(seq(2:10)*11,2)
+
 
 # Set sample size
-n = nrow(ldf[[1]]['best.classification'])
+n = nrow(ldf[[1]])
   
 ####################     CALCULATE THE LRT p-values                ####################
 
 results$LRTp = NA
 for (i in c(seq(1,8), seq(10,17))) {
-  results$LRTp[i] = calc_lrt(n, results$LL[i], results$df[i], results$Profiles[i], 
+  results$LRTp[i] = calc_lrt(n, results$LL[i], results$df[i], results$Profiles[i],
                             results$LL[i + 1], results$df[i + 1], results$Profiles[i + 1])[4] %>% round(2)
 }
 
@@ -63,11 +63,12 @@ results$max = NA
 results$max_per = NA
 
 for (i in seq(1, 18)) {
-  results$min[i] = ldf[[i]]['best.classification'] %>% table %>% min
+  results$min[i] = ldf[[i]]['result.classification'] %>% table %>% min
   results$min_per[i] = 100*results$min[i]/n ; results$min_per <- results$min_per %>% round(2)
-  results$max[i] = ldf[[i]]['best.classification'] %>% table %>% max
-  results$max_per[i] = 100*results$max[i]/n ; results$max_per <- results$max_per %>% round(2)
   
+  results$max[i] = ldf[[i]]['result.classification'] %>% table %>% max
+  results$max_per[i] = 100*results$max[i]/n ; results$max_per <- results$max_per %>% round(2)
+
 }
 
 # reorder rows according to profiles
