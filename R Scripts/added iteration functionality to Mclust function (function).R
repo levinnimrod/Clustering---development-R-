@@ -6,29 +6,29 @@ typology <- function(data, n_groups, sample, seed = 1) {
 # Get the optimal log-likelihood and total iterations so far
   if (!file.exists(paste0('Optimal Likelihood/', seed))){
     ll <- read.csv(paste0('Optimal Likelihood/', 0))[,-1]
-  }
-  else {ll <- read.csv(paste0('Optimal Likelihood/', seed))[,-1]}
+  } else {ll <- read.csv(paste0('Optimal Likelihood/', seed))[,-1]}
+  
   total_iterations = read.csv('total iterations')[, -1]
 
   #  count numebr of iterations
-  i = 0; bestll = -10000000
+  i = 0; bestll = -10000000000; result$loglik == 0
   
   randpairs <- randomPairs(data, seed)
   
   # run mclust to check for better solutions
-  while ( (ll[n_groups, sample + 4] != 0) & (i < 200) ) {  
+  while ( (ll[n_groups, sample + 4] != 0 ) & (i < 200) ) {  
     i = i + 1
     print(paste0("Iteration #", i, " for sample #", sample, ' and groups = ', n_groups, ' (seed = ', seed, ')'))
     result <- Mclust(data, G = n_groups, modelNames = 'EII', initialization = list(hcpairs = randpairs))
     
-    if (round(result$loglik,2) >= ll[n_groups, sample]) {
+    if (result$loglik >= ll[n_groups, sample]) {
       
       # compute the difference for the new best ll compared to previous
       
       
       ll[n_groups, sample + 6] = ll[n_groups, sample + 2]
-      ll[n_groups, sample + 2] = seed
-      ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(2)
+      ll[n_groups, sample + 2] = i
+      ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(1)
       ll[n_groups, sample + 8] = result$modelName
       ll[n_groups, sample + 10] = result$df
       
@@ -58,7 +58,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
   
   # save the results only if there is a new optimal result
   max <- read.csv('maximum loglikelihood')[-1]
-  if (bestll > max[n_groups, sample]) {
+  if (bestll >= max[n_groups, sample]) {
   write.csv(best_save, file = paste0('Clustering results/z and classificaiton for sample ', sample, ' with groups ', n_groups))
   max[n_groups, sample] <- bestll %>% round(2)
   max[n_groups, sample + 2] <- seed
