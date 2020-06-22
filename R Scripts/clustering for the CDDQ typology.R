@@ -35,6 +35,6 @@ typology(data = ipsative1, n_groups = i, sample = 1, iterations = 20)
 typology(data = ipsative2, n_groups = i, sample = 2, iterations = 20)
 }
 }
-  
+   
 
 
