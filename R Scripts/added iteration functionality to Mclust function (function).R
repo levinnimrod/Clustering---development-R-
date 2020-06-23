@@ -12,7 +12,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
 
   #  count numebr of iterations
   i = 0; bestll = -10000000000; result$loglik == 0
-  mclust.options(hcUse = 'RND')
+  mclust.options(hcUse = 'RND', subset = 20)
   randpairs <- randomPairs(data, seed)
   
   # run mclust to check for better solutions
