@@ -28,7 +28,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
       
       ll[n_groups, sample + 6] = ll[n_groups, sample + 2]
       ll[n_groups, sample + 2] = i
-      ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(1)
+      ll[n_groups, sample + 4] = (result$loglik-ll[n_groups, sample]) %>% round(2)
       ll[n_groups, sample + 8] = result$modelName
       ll[n_groups, sample + 10] = result$df
       
