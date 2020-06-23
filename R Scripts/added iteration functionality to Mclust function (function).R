@@ -39,7 +39,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
       print(c("A new ll maximum = ", ll[n_groups, sample] %>% round(2)))
       
       # Save new best results
-      best_save <- result$z %>% as.data.frame(); best_save <- cbind(best_save, result$classification)
+      best_save <- result$z %>% as.data.frame(); best_save <- cbind(best_save, result$classification, result$uncertainty)
       print(summary(result))
     }
     
