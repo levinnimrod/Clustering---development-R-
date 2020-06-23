@@ -34,7 +34,7 @@ sample2$LI <- (sample2$Lp + sample2$Lo + sample2$Lp + sample2$Ls) / 4 %>% round(
 classifications = data.frame(rep(NA, nrow(ldf[[1]])))
 
 for (i in seq(18)){ 
-  classifications[i] = ldf[[i]]['best.classification']
+  classifications[i] = ldf[[i]]['result.classification']
 }
 
 classifications <- cbind(classifications[,2:9], classifications[,1], classifications[,11:18], classifications[,10])
@@ -44,7 +44,7 @@ colnames(classifications) <- paste0("S", c(rep(1,9), rep(2, 9)), "_G", seq(2,10)
 names <- c(paste0('S1_G', 2:10), paste0('S2_G', 2:10))
 
 # define which two solutions you want to compare (i = ?)
-i = 7
+i = 4
 
 aggregate(sample1[c('Ri', 'Rd', 'LI', 'Ie')], by = as.data.frame(classifications[names[i-1]]), FUN = mean) 
 
@@ -61,7 +61,6 @@ results = results %>% cbind(cbind(aggregate(sample2[c('Ri', 'Rd', 'LI', 'Ie', 't
 results[1, ] <- c(rep(1, i), rep(2, i)); results <- t(results) %>% as.data.frame; 
 results <- arrange(results, desc(total)) %>% t %>% as.data.frame(); 
 results
-
 
 ####################      EVALUATE THE MEAN DIFFERENCES - ALL 10 DIMENSIONS               ####################
 names <- c(paste0('S1_G', 2:10), paste0('S2_G', 2:10))
