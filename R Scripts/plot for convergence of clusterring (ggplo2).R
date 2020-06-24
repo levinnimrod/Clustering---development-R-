@@ -5,7 +5,8 @@ graphics.off()
 
 
 ####################      DERIVE THE MAXIMUM LL FROM EACH RANDOM START                ####################
-setwd(choose.dir()) # choose the directory "Optimal Likelihood"
+setwd(choose.dir()) # choose the directory "Optimal Likelihood" (pc)
+setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs/Optimal Likelihood/') # mac
 files <- list.files()
 ldf = rep(NA,2) %>% as.data.frame()
 
@@ -151,11 +152,12 @@ grid.arrange(plot1_2, plot2_2, plot1_3, plot2_3, plot1_4, plot2_4, plot1_5, plot
 ####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH P < .80 FOR CLUSTER ASSIGNMENT                ####################
 
 # get the relevant files with the probabilites for cluster assignment
-files <- paste0('..\\Clustering results\\', list.files('..\\Clustering results'))
+#files <- paste0('..\\Clustering results\\', list.files('..\\Clustering results')) # pc 
+files <- paste0('../Clustering results/', list.files('../Clustering results')) # mac
 ldf <- lapply(files, read.csv); remove(files)
 
 # extract the maximum p and the second maximum p and calculate its ratio
-i = 17; limit <- ldf[[i]] %>% ncol - 2
+i = 15; limit <- ldf[[i]] %>% ncol - 2
 result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
 result <- result[, limit-1] / result[, limit-2]; result <- result < 2
 

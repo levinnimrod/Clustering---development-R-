@@ -3,7 +3,8 @@ remove(list = ls())
 library(dplyr); library(tidyLPA)
 
 ####################      LOAD ALL SOLUTIONS                ####################
-setwd(choose.dir())
+setwd(choose.dir()) # pc
+setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs/Clustering results/')
 files <- list.files()
 ldf <- lapply(files, read.csv); remove(files)
 
@@ -16,8 +17,8 @@ results$profiles <- c(rep(2:10,2)); colnames(results) <- c('Sample', 'Profiles')
 
 # extract the log-likelihood values
 results$LL = NA
-results$LL[1:9] <- read.csv('..\\maximum loglikelihood')[-1, 2]
-results$LL[10:18] <- read.csv('..\\maximum loglikelihood')[-1, 3]
+results$LL[1:9] <- read.csv('../maximum loglikelihood')[-1, 2]
+results$LL[10:18] <- read.csv('../maximum loglikelihood')[-1, 3]
 
 # set the relevant degrees of freedom
 results$df<- rep(seq(2:10)*11,2)
@@ -77,3 +78,4 @@ results <- cbind(results[, 1:4], results[, 6:8], results[, 5], results[, 9:13]);
 colnames(results) <- c("Sample", "Profiles", "LL", "df", "AIC", "BIC", "SaBIC",
                        "LRTp", "Entropy", "min", "min_per", "max", "max_per")
 results
+
