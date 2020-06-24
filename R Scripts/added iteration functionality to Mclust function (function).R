@@ -1,7 +1,7 @@
 typology <- function(data, n_groups, sample, seed = 1) {
 
-  #  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
-    setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
+    setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
+  #  setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
   
 # Get the optimal log-likelihood and total iterations so far
   if (!file.exists(paste0('Optimal Likelihood/', seed))){

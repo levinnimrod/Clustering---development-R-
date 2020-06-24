@@ -27,13 +27,12 @@ ipsative1 <- sample1[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.fram
 ipsative2 <- sample2[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.frame()
 
 # get best estimate of loglikelihood from previous iteration
-url <- file.choose(); source(url); remove(url)
+url <- file.choose(); source(url); remove(url); result <- Mclust(ipsative1, G = 2)
 
-for (s in seq(40, 40)) { # number of random seeds
+for (s in seq(137, 150)) { # number of random seeds
 for (i in seq(2, 10)) { # number of groups
 typology(data = ipsative1, n_groups = i, sample = 1, seed = s)
 typology(data = ipsative2, n_groups = i, sample = 2, seed = s)
 }
 }
-
 
