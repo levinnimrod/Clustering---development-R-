@@ -11,12 +11,13 @@ typology <- function(data, n_groups, sample, seed = 1) {
   total_iterations = read.csv('total iterations')[, -1]
 
   #  count numebr of iterations
-  i = 0; bestll = -10000000000; result$loglik == 0
+  i = total_iterations[seed, (sample-1)*9 + n_groups - 1]
+  bestll = -10000000000; result$loglik == 0
   mclust.options(hcUse = 'RND', subset = 20)
   randpairs <- randomPairs(data, seed)
   
   # run mclust to check for better solutions
-  while ( (ll[n_groups, sample + 4] != 0 ) & (i < 200) ) {  
+  while (i < 200) {  
     i = i + 1
     print(paste0("Iteration #", i, " for sample #", sample, ' and groups = ', n_groups, ' (seed = ', seed, ')'))
     result <- Mclust(data, G = n_groups, modelNames = 'EII', initialization = list(hcpairs = randpairs))
@@ -48,11 +49,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
   # save new data for optimal ll + total iterations
   write.csv(ll, file = paste0('Optimal Likelihood/', seed))
 
-  if (is.na(total_iterations[seed, (sample-1)*9 + n_groups - 1])) {
-    total_iterations[seed, (sample-1)*9 + n_groups - 1] = i
-  }
-  else {    total_iterations[seed, (sample-1)*9 + n_groups - 1] = i + 
-    total_iterations[seed, (sample-1)*9 + n_groups - 1]}
+  total_iterations[seed, (sample-1)*9 + n_groups - 1] = i
   
   write.csv(total_iterations, file = 'total iterations')
   
