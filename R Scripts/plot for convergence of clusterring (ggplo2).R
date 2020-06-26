@@ -21,143 +21,78 @@ colnames(ldf) <- paste0("Seed_", seq(length(files)-1))
 ldf <- ldf %>% t %>% as.data.frame()
 colnames(ldf) <- paste0("S", c(rep(1,9), rep(2, 9)), "_G", rep(2:10))
 
-####################      PLOT THE SOLUTIONS BETWEEN MEDIAN AND MAX                ####################
-
-plot1_2 <- ggplot(ldf, aes(x=S1_G2, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G2), max(ldf$S1_G2))
-plot1_3 <- ggplot(ldf, aes(x=S1_G3, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G3), max(ldf$S1_G3))
-plot1_4 <- ggplot(ldf, aes(x=S1_G4, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G4), max(ldf$S1_G4))
-plot1_5 <- ggplot(ldf, aes(x=S1_G5, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G5), max(ldf$S1_G5))
-plot1_6 <- ggplot(ldf, aes(x=S1_G6, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G6), max(ldf$S1_G6))
-plot1_7 <- ggplot(ldf, aes(x=S1_G7, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G7), max(ldf$S1_G7))
-plot1_8 <- ggplot(ldf, aes(x=S1_G8, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G8), max(ldf$S1_G8))
-plot1_9 <- ggplot(ldf, aes(x=S1_G9, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G9), max(ldf$S1_G9))
-plot1_10 <- ggplot(ldf, aes(x=S1_G10, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S1_G10), max(ldf$S1_G10))
-
-plot2_2 <- ggplot(ldf, aes(x=S2_G2, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G2), max(ldf$S2_G2))
-plot2_3 <- ggplot(ldf, aes(x=S2_G3, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G3), max(ldf$S2_G3))
-plot2_4 <- ggplot(ldf, aes(x=S2_G4, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G4), max(ldf$S2_G4))
-plot2_5 <- ggplot(ldf, aes(x=S2_G5, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G5), max(ldf$S2_G5))
-plot2_6 <- ggplot(ldf, aes(x=S2_G6, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G6), max(ldf$S2_G6))
-plot2_7 <- ggplot(ldf, aes(x=S2_G7, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G7), max(ldf$S2_G7))
-plot2_8 <- ggplot(ldf, aes(x=S2_G8, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G8), max(ldf$S2_G8))
-plot2_9 <- ggplot(ldf, aes(x=S2_G9, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G9), max(ldf$S2_G9))
-plot2_10 <- ggplot(ldf, aes(x=S2_G10, y=c(0), alpha = 0.3 )) + geom_count() + 
-  theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-        legend.position = 'none') + xlim(median(ldf$S2_G10), max(ldf$S2_G10))
-
-
-grid.arrange(plot1_2, plot2_2, plot1_3, plot2_3, plot1_4, plot2_4, plot1_5, plot2_5,
-             plot1_6, plot2_6, plot1_7, plot2_7, plot1_8, plot2_8, plot1_9, plot2_9, plot1_10, plot2_10,
-             nrow = 9, ncol = 2)
-
-
-
 ####################      PLOT THE SOLUTIONS WITH ALL DATA POINTS                ####################
 
-# plot1_2 <- ggplot(ldf, aes(x=S1_G2, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_3 <- ggplot(ldf, aes(x=S1_G3, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_4 <- ggplot(ldf, aes(x=S1_G4, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_5 <- ggplot(ldf, aes(x=S1_G5, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_6 <- ggplot(ldf, aes(x=S1_G6, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_7 <- ggplot(ldf, aes(x=S1_G7, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_8 <- ggplot(ldf, aes(x=S1_G8, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_9 <- ggplot(ldf, aes(x=S1_G9, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot1_10 <- ggplot(ldf, aes(x=S1_G10, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# 
-# plot2_2 <- ggplot(ldf, aes(x=S2_G2, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_3 <- ggplot(ldf, aes(x=S2_G3, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_4 <- ggplot(ldf, aes(x=S2_G4, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_5 <- ggplot(ldf, aes(x=S2_G5, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_6 <- ggplot(ldf, aes(x=S2_G6, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_7 <- ggplot(ldf, aes(x=S2_G7, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_8 <- ggplot(ldf, aes(x=S2_G8, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_9 <- ggplot(ldf, aes(x=S2_G9, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
-# plot2_10 <- ggplot(ldf, aes(x=S2_G10, y=c(0), alpha = 0.3 )) + geom_count() + 
-#   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(), 
-#         legend.position = 'none')
+ plot1_2 <- ggplot(ldf, aes(x=S1_G2, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_3 <- ggplot(ldf, aes(x=S1_G3, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_4 <- ggplot(ldf, aes(x=S1_G4, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_5 <- ggplot(ldf, aes(x=S1_G5, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_6 <- ggplot(ldf, aes(x=S1_G6, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_7 <- ggplot(ldf, aes(x=S1_G7, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_8 <- ggplot(ldf, aes(x=S1_G8, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_9 <- ggplot(ldf, aes(x=S1_G9, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot1_10 <- ggplot(ldf, aes(x=S1_G10, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
 
-# 
-# grid.arrange(plot1_2, plot2_2, plot1_3, plot2_3, plot1_4, plot2_4, plot1_5, plot2_5,
-#              plot1_6, plot2_6, plot1_7, plot2_7, plot1_8, plot2_8, plot1_9, plot2_9, plot1_10, plot2_10,
-#              nrow = 9, ncol = 2)
+ plot2_2 <- ggplot(ldf, aes(x=S2_G2, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_3 <- ggplot(ldf, aes(x=S2_G3, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_4 <- ggplot(ldf, aes(x=S2_G4, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_5 <- ggplot(ldf, aes(x=S2_G5, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_6 <- ggplot(ldf, aes(x=S2_G6, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_7 <- ggplot(ldf, aes(x=S2_G7, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_8 <- ggplot(ldf, aes(x=S2_G8, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_9 <- ggplot(ldf, aes(x=S2_G9, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+ plot2_10 <- ggplot(ldf, aes(x=S2_G10, y=c(0), alpha = 0.3 )) + geom_count() +
+   theme(axis.ticks = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank(),
+         legend.position = 'none')
+
+
+ grid.arrange(plot1_2, plot2_2, plot1_3, plot2_3, plot1_4, plot2_4, plot1_5, plot2_5,
+              plot1_6, plot2_6, plot1_7, plot2_7, plot1_8, plot2_8, plot1_9, plot2_9, plot1_10, plot2_10,
+              nrow = 9, ncol = 2)
 
 ####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH P < .80 FOR CLUSTER ASSIGNMENT                ####################
 
-# get the relevant files with the probabilites for cluster assignment
+# get the relevant files with the probabilities for cluster assignment
 #files <- paste0('..\\Clustering results\\', list.files('..\\Clustering results')) # pc 
 files <- paste0('../Clustering results/', list.files('../Clustering results')) # mac
 ldf <- lapply(files, read.csv); remove(files)
 
 # extract the maximum p and the second maximum p and calculate its ratio
-i = 15; limit <- ldf[[i]] %>% ncol - 2
+i = 6; limit <- ldf[[i]] %>% ncol - 2
 result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
 result <- result[, limit-1] / result[, limit-2]; result <- result < 2
 
@@ -165,7 +100,10 @@ result <- result[, limit-1] / result[, limit-2]; result <- result < 2
 aggregate(result, by = as.data.frame(ldf[[i]]['result.classification']), FUN = sum)
 table(ldf[[i]]['result.classification'])
 
+sum(ldf[[15]]['result.uncertainty'] > .20)/44
 
+results <- ldf[[13]][2:6] %>% apply(MARGIN = 1, sort); results <- results %>% t
+sum(results[,5] < .80 )/4459
 
-
+ldf[[15]]
 
