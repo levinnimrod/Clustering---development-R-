@@ -11,7 +11,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
   total_iterations = read.csv('total iterations')[, -1]
 
   #  count numebr of iterations
-  i = total_iterations[seed, (sample-1)*9 + n_groups - 1]
+  i = 0
   bestll = -10000000000; result$loglik == 0
   mclust.options(hcUse = 'RND', subset = 20)
   randpairs <- randomPairs(data, seed)
