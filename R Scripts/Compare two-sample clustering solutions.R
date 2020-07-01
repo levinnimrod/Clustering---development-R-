@@ -1,21 +1,21 @@
 ####################      RELEVANT LIBRARIES AND WORKING DIRECTORY                ####################
 remove(list = ls())
-library(dplyr); library(ggplot2)
+library(dplyr); library(ggplot2); library(lsr)
 
 ####################      LOAD THE CLUSTERING SOLUTIONS                ####################
 setwd(choose.dir())
 files <- list.files()
-ldf <- lapply(files, read.csv); remove(files)
+ldf <- lapply(files, fread); remove(files)
 
 ####################      LOAD TIDY FILES AND SUBSET FOR THE RELEVANT SAMPLE                ####################
-cddq <- file.choose() %>% read.csv
+cddq <- fread('../../../df.csv')
 
 # get only participants with RCA based in the USA
-cddq <- cddq[!is.na(cddq$RCA) & cddq$Country == "USA", ]
+cddq <- cddq[!is.na(cddq$RCA) & cddq$Country == "USA"]
 
 # remove participants with no difference in responses
-url <- file.choose(); source(url)
-cddq <- cddq[!exclude(cddq[, c(49:51, 53:56, 58:60)]) == 0, ]; remove(url, exclude)
+source('../../R Scripts/zero-variance validity check (function).R')
+cddq <- cddq[!exclude(cddq[, c(49:51, 53:56, 58:60)]) == 0, ]; remove(exclude)
 
 ####################      CREATE TWO RANDOM SAMPLES                ####################
 sample1 <- cddq[seq(1, nrow(cddq), by = 2), ]; sample1 <- sample1[, -1]; 
@@ -32,9 +32,12 @@ sample2$LI <- (sample2$Lp + sample2$Lo + sample2$Lp + sample2$Ls) / 4 %>% round(
 
 ####################      EXCTRACT CLASSIFICATIONS FROM THE SOLUTIONS                ####################
 classifications = data.frame(rep(NA, nrow(ldf[[1]])))
+uncertainty = data.frame(rep(NA, nrow(ldf[[1]])))
 
 for (i in seq(18)){ 
   classifications[i] = ldf[[i]]['result.classification']
+#  uncertainty[i] = ldf[[i]]['result.uncertainty']
+  
 }
 
 classifications <- cbind(classifications[,2:9], classifications[,1], classifications[,11:18], classifications[,10])
@@ -66,10 +69,10 @@ results
 names <- c(paste0('S1_G', 2:10), paste0('S2_G', 2:10))
 
 # define which two solutions you want to compare (i = ?)
-i = 5
+i = 4
 
 # Extract the mean values of the variables for the clustering groups from sample 1
-results = cbind(aggregate(sample1[, 7:17], by = as.data.frame(classifications[names[i-1]]), 
+results = cbind(aggregate(sample1[(ldf[[i]]['result.uncertainty'] <= .20), 7:17], by = as.data.frame(classifications[names[i-1]][(ldf[[i]]['result.uncertainty'] <= .20)]), 
                           FUN = sd) %>% round(2), table(classifications[names[i-1]])) %>% arrange(desc(total)) %>% t
 
 # Extract the mean values of the variables for the clustering groups from sample 2
@@ -80,6 +83,9 @@ results = results %>% cbind(cbind(aggregate(sample2[, 7:17], by = as.data.frame(
 results[1, ] <- c(rep(1, i), rep(2, i)); results <- t(results) %>% as.data.frame; 
 results <- arrange(results, desc(total)) %>% t %>% as.data.frame(); 
 results
+
+
+
 
 ###################      COMPUTE THE MEAN OF THE MAXIMUM DIFFERENCE BETWEEN SAMPLES ACROSS THE 10 SCORES                ####################
 results = rep(NA, 12) %>% as.data.frame()

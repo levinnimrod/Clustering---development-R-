@@ -4,7 +4,7 @@ library(dplyr); library(tidyLPA)
 
 ####################      LOAD ALL SOLUTIONS                ####################
 setwd(choose.dir()) # pc
-setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs/Clustering results/')
+#setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs/Clustering results/') # mac
 files <- list.files()
 ldf <- lapply(files, read.csv); remove(files)
 

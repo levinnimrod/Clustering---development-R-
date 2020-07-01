@@ -84,7 +84,7 @@ colnames(ldf) <- paste0("S", c(rep(1,9), rep(2, 9)), "_G", rep(2:10))
               plot1_6, plot2_6, plot1_7, plot2_7, plot1_8, plot2_8, plot1_9, plot2_9, plot1_10, plot2_10,
               nrow = 9, ncol = 2)
 
-####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH P < .80 FOR CLUSTER ASSIGNMENT                ####################
+####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH CR < 2 FOR CLUSTER ASSIGNMENT                ####################
 
 # get the relevant files with the probabilities for cluster assignment
 #files <- paste0('..\\Clustering results\\', list.files('..\\Clustering results')) # pc 
@@ -92,7 +92,7 @@ files <- paste0('../Clustering results/', list.files('../Clustering results')) #
 ldf <- lapply(files, read.csv); remove(files)
 
 # extract the maximum p and the second maximum p and calculate its ratio
-i = 6; limit <- ldf[[i]] %>% ncol - 2
+i = 4; limit <- ldf[[i]] %>% ncol - 2
 result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
 result <- result[, limit-1] / result[, limit-2]; result <- result < 2
 
@@ -106,4 +106,13 @@ results <- ldf[[13]][2:6] %>% apply(MARGIN = 1, sort); results <- results %>% t
 sum(results[,5] < .80 )/4459
 
 ldf[[15]]
+
+####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH P < .80 FOR CLUSTER ASSIGNMENT                ####################
+
+# extract the maximum p and the second maximum p and calculate its ratio
+i = 12; limit <- ldf[[i]] %>% ncol - 1
+result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
+
+aggregate(result[, limit-2], by = as.data.frame(result[, limit-1]), FUN = mean)
+table(result[, limit-1])
 
