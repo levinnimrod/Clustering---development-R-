@@ -10,7 +10,7 @@ setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs/Optimal Likelihood/') #
 files <- list.files()
 ldf = rep(NA,2) %>% as.data.frame()
 
-for (i in seq(length(files)-1)) {
+for (i in seq(length(files)-2)) {
   ldf[1:9, i] <- read.table(as.character(i), sep = ',', header = TRUE)[-1, 2] %>% round(2)
   ldf[10:18, i] <- read.table(as.character(i), sep = ',', header = TRUE)[-1, 3] %>% round(2)
 }

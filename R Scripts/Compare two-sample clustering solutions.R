@@ -8,10 +8,10 @@ files <- list.files()
 ldf <- lapply(files, fread); remove(files)
 
 ####################      LOAD TIDY FILES AND SUBSET FOR THE RELEVANT SAMPLE                ####################
-cddq <- fread('../../../df.csv')
+cddq <- read.csv('../../../df.csv')
 
 # get only participants with RCA based in the USA
-cddq <- cddq[!is.na(cddq$RCA) & cddq$Country == "USA"]
+cddq <- cddq[!is.na(cddq$RCA) & cddq$Country == "USA", ]
 
 # remove participants with no difference in responses
 source('../../R Scripts/zero-variance validity check (function).R')
