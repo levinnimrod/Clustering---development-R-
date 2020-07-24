@@ -103,12 +103,26 @@ table(ldf[[i]]['result.classification'])
 ####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH P < .80 FOR CLUSTER ASSIGNMENT                ####################
 
 # extract the maximum p and the second maximum p and calculate its ratio
-i = 14
+i = 18
 result <- ldf[[i]][c('result.uncertainty', 'result.classification')] 
 
-aggregate(result$result.uncertainty > .2, by = as.data.frame(result$result.classification), FUN = mean)
+# compute the mean posterior classification probability for each profile
+aggregate(1-result$result.uncertainty, by = as.data.frame(result$result.classification), FUN = mean)
 table(result$result.classification)
 
-# Compute p < .80 at the Solution level (across profiles)
+# compute the percentage of participants with classification probability lower than .80 in each group
+aggregate(result$result.uncertainty <= .2, by = as.data.frame(result$result.classification), FUN = mean)
+table(result$result.classification)
+
+ # Compute p < .80 at the Solution level (across profiles)
 (ldf[[i]]['result.uncertainty'] > .20) %>% sum/44.59 %>% round(2)
 
+####################      CALCULATE PERCENTAGE P < .80 FOR CLUSTER ASSIGNMENT (OLD DATA FORMAT) ####################
+# extract the maximum p and the second maximum p and calculate its ratio
+i = 11; limit <- ldf[[i]] %>% ncol - 1
+result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
+
+# summarize results by groups (count of ratios smaller than 2)
+aggregate(result, by = as.data.frame(ldf[[i]]['result.classification']), FUN = mean)
+aggregate(result >= .80, by = as.data.frame(ldf[[i]]['result.classification']), FUN = mean)
+table(ldf[[i]]['result.classification'])
