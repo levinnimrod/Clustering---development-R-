@@ -92,7 +92,7 @@ files <- paste0('../Clustering results/', list.files('../Clustering results')) #
 ldf <- lapply(files, read.csv); remove(files)
 
 # extract the maximum p and the second maximum p and calculate its ratio
-i = 4; limit <- ldf[[i]] %>% ncol - 2
+i = 14; limit <- ldf[[i]] %>% ncol - 2
 result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
 result <- result[, limit-1] / result[, limit-2]; result <- result < 2
 
@@ -100,19 +100,15 @@ result <- result[, limit-1] / result[, limit-2]; result <- result < 2
 aggregate(result, by = as.data.frame(ldf[[i]]['result.classification']), FUN = sum)
 table(ldf[[i]]['result.classification'])
 
-sum(ldf[[15]]['result.uncertainty'] > .20)/44
-
-results <- ldf[[13]][2:6] %>% apply(MARGIN = 1, sort); results <- results %>% t
-sum(results[,5] < .80 )/4459
-
-ldf[[15]]
-
 ####################      CALCULATE PERCENTAGE OF PARTICIPANTS WITH P < .80 FOR CLUSTER ASSIGNMENT                ####################
 
 # extract the maximum p and the second maximum p and calculate its ratio
-i = 12; limit <- ldf[[i]] %>% ncol - 1
-result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
+i = 14
+result <- ldf[[i]][c('result.uncertainty', 'result.classification')] 
 
-aggregate(result[, limit-2], by = as.data.frame(result[, limit-1]), FUN = mean)
-table(result[, limit-1])
+aggregate(result$result.uncertainty > .2, by = as.data.frame(result$result.classification), FUN = mean)
+table(result$result.classification)
+
+# Compute p < .80 at the Solution level (across profiles)
+(ldf[[i]]['result.uncertainty'] > .20) %>% sum/44.59 %>% round(2)
 

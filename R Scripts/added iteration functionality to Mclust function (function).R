@@ -17,7 +17,7 @@ typology <- function(data, n_groups, sample, seed = 1) {
   randpairs <- randomPairs(data, seed)
   
   # run mclust to check for better solutions
-  while (i < 200) {  
+  while (i < 2000) {  
     i = i + 1
     print(paste0("Iteration #", i, " for sample #", sample, ' and groups = ', n_groups, ' (seed = ', seed, ')'))
     result <- Mclust(data, G = n_groups, modelNames = 'EII', initialization = list(hcpairs = randpairs))

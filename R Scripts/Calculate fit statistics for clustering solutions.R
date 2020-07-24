@@ -77,5 +77,6 @@ results <- rbind(results[2:9, ], results[1,], results[11:18,], results[10,])
 results <- cbind(results[, 1:4], results[, 6:8], results[, 5], results[, 9:13]);
 colnames(results) <- c("Sample", "Profiles", "LL", "df", "AIC", "BIC", "SaBIC",
                        "LRTp", "Entropy", "min", "min_per", "max", "max_per")
-results
+results; x <- results
+
 

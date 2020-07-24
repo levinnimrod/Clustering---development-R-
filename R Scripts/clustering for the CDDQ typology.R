@@ -30,10 +30,10 @@ ipsative2 <- sample2[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.fram
 url <- file.choose(); source(url); remove(url)
 
 
-for (s in seq(421 , 440)) { # number of random seeds
-for (i in seq(2, 10)) { # number of groups
-typology(data = ipsative1, n_groups = i, sample = 1, seed = s)
-typology(data = ipsative2, n_groups = i, sample = 2, seed = s)
+for (s in seq(420 , 420)) { # number of random seeds
+for (i in seq(5, 5)) { # number of groups
+temp <- typology(data = ipsative1, n_groups = i, sample = 1, seed = s)
+temp2 <- typology(data = ipsative2, n_groups = i, sample = 2, seed = s)
 }
 }
  
