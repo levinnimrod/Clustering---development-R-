@@ -69,7 +69,7 @@ colnames(dat) <- c('moder', 'variable', 'value')
 
 library(ggplot2)
 g <- ggplot(data = dat, aes(x=variable, y = value, fill = moder))
-g +   geom_bar(stat="identity", position=position_dodge(), width=0.5)
-
+g +   geom_bar(stat="identity", position=position_dodge())
+ 
 
   
