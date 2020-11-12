@@ -17,6 +17,38 @@ sample1 <- cddq[seq(1, nrow(cddq), by = 2), ]; sample1 <- sample1[, -1];
 sample2 <- cddq[seq(2, nrow(cddq), by = 2), ]; sample2 <- sample2[, -1];
 remove(cddq)
 
+####################      ESTIMATE RELIABILITIES                ####################
+sample1[c('Rm1', 'Rm2', 'Rm3')] %>% alpha()
+sample2[c('Rm1', 'Rm2', 'Rm3')] %>% alpha()
+
+sample1[c('Ri1', 'Ri2', 'Ri3')] %>% alpha()
+sample2[c('Ri1', 'Ri2', 'Ri3')] %>% alpha()
+
+sample1[c('Rd1', 'Rd2', 'Rd3', 'Rd4')] %>% alpha()
+sample2[c('Rd1', 'Rd2', 'Rd3', 'Rd4')] %>% alpha()
+
+sample1[c('Lp1', 'Lp2', 'Lp3')] %>% alpha()
+sample2[c('Lp1', 'Lp2', 'Lp3')] %>% alpha()
+
+sample1[c('Ls1', 'Ls2', 'Ls3', 'Ls4')] %>% alpha()
+sample2[c('Ls1', 'Ls2', 'Ls3', 'Ls4')] %>% alpha()
+
+sample1[c('Lo1', 'Lo2', 'Lo3')] %>% alpha()
+sample2[c('Lo1', 'Lo2', 'Lo3')] %>% alpha()
+
+sample1[c('La1', 'La2')] %>% alpha()
+sample2[c('La1', 'La2')] %>% alpha()
+
+sample1[c('Iu1', 'Iu2', 'Iu3')] %>% alpha()
+sample2[c('Iu1', 'Iu2', 'Iu3')] %>% alpha()
+
+sample1[c('Ii1', 'Ii2', 'Ii3', 'Ii4', 'Ii5')] %>% alpha()
+sample2[c('Ii1', 'Ii2', 'Ii3', 'Ii4', 'Ii5')] %>% alpha()
+
+sample1[c('Ie1', 'Ie2')] %>% alpha()
+sample2[c('Ie1', 'Ie2')] %>% alpha()
+
+
 # get only the variables you need
 sample1 <- (sample1[, c(4:5, 8:11, 48:50, 52:55, 57:59, 61)]) %>% round(2)
 sample2 <- (sample2[, c(4:5, 8:11, 48:50, 52:55, 57:59, 61)]) %>% round(2)
