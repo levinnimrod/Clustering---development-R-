@@ -1,6 +1,7 @@
 ####################      RELEVANT LIBRARIES AND WORKING DIRECTORY                ####################
+# LAST DATE - 09/11/2020
 remove(list = ls())
-library(dplyr); library(mclust)
+library(dplyr); library(mclust); library(psych)
 
 ####################      LOAD TIDY FILES AND SUBSET FOR THE RELEVANT SAMPLE                ####################
 cddq <- file.choose() %>% read.csv
@@ -15,6 +16,22 @@ cddq <- cddq[!exclude(cddq[, c(49:51, 53:56, 58:60)]) == 0, ]; remove(url, exclu
 ####################      CREATE TWO RANDOM SAMPLES                ####################
 sample1 <- cddq[seq(1, nrow(cddq), by = 2), ]; sample1 <- sample1[, -1]; 
 sample2 <- cddq[seq(2, nrow(cddq), by = 2), ]; sample2 <- sample2[, -1];
+
+####################      RELIABILITY ANALYSES               ####################
+cddq[c('Rm1', 'Rm2', 'Rm3')] %>% alpha()
+cddq[c('Ri1', 'Ri2', 'Ri3')] %>% alpha()
+cddq[c('Rd1', 'Rd2', 'Rd3', 'Rd4')] %>% alpha()
+
+cddq[c('Lp1', 'Lp2', 'Lp3')] %>% alpha()
+cddq[c('Ls1', 'Ls2', 'Ls3', 'Ls4')] %>% alpha()
+cddq[c('Lo1', 'Lo2', 'Lo3')] %>% alpha()
+cddq[c('La1', 'La2')] %>% alpha()
+
+cddq[c('Iu1', 'Iu2', 'Iu3')] %>% alpha()
+cddq[c('Ii1', 'Ii2', 'Ii3', 'Ii4', 'Ii5')] %>% alpha()
+cddq[c('Ie1', 'Ie2')] %>% alpha()
+
+
 remove(cddq)
 
 # get only the variables you need
@@ -30,10 +47,9 @@ ipsative2 <- sample2[, 7:16] %>% t %>% scale %>% t %>% round(2) %>% as.data.fram
 url <- file.choose(); source(url); remove(url)
 
 
-for (s in seq(420 , 420)) { # number of random seeds
-for (i in seq(5, 5)) { # number of groups
-temp <- typology(data = ipsative1, n_groups = i, sample = 1, seed = s)
-temp2 <- typology(data = ipsative2, n_groups = i, sample = 2, seed = s)
+for (s in seq(726 , 750)) { # number of random seeds
+for (i in seq(2, 10)) { # number of groups
+typology(data = ipsative1, n_groups = i, sample = 1, seed = s)
+typology(data = ipsative2, n_groups = i, sample = 2, seed = s)
 }
 }
- 
