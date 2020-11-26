@@ -1,5 +1,4 @@
 typology <- function(data, n_groups, sample, seed = 1) {
-
   #  setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\")
     setwd('/Users/nimrodlevin/Desktop/Study 4/Mclust outputs')
   
@@ -9,19 +8,20 @@ typology <- function(data, n_groups, sample, seed = 1) {
   } else {ll <- read.csv(paste0('Optimal Likelihood/', seed))[,-1]}
   
   total_iterations = read.csv('total iterations')[, -1]
-
+  
   #  count numebr of iterations
   i = 0
-  bestll = -10000000000; result$loglik == 0
-  mclust.options(hcUse = 'RND', subset = 20)
-  randpairs <- randomPairs(data, seed)
+
+  bestll = -10000000000; result$loglik = 0
   
+  mclust.options(hcUse = 'RND', subset = 200)
+  randpairs <- randomPairs(data, seed)
   # run mclust to check for better solutions
-  while (i < 2000) {  
+    while (i < 200) {  
     i = i + 1
     print(paste0("Iteration #", i, " for sample #", sample, ' and groups = ', n_groups, ' (seed = ', seed, ')'))
     result <- Mclust(data, G = n_groups, modelNames = 'EII', initialization = list(hcpairs = randpairs))
-    
+
     if (result$loglik >= ll[n_groups, sample]) {
       
       # compute the difference for the new best ll compared to previous
