@@ -15,7 +15,7 @@ for (i in seq(length(files)-2)) {
   ldf[10:18, i] <- read.table(as.character(i), sep = ',', header = TRUE)[-1, 3] %>% round(2)
 }
 
-colnames(ldf) <- paste0("Seed_", seq(length(files)-1))
+colnames(ldf) <- paste0("Seed_", seq(length(files)-2))
 
 # And transpose the data set
 ldf <- ldf %>% t %>% as.data.frame()
@@ -126,3 +126,4 @@ result <- ldf[[i]][2:limit] %>% apply(MARGIN = 1, sort) ; result <- result %>% t
 aggregate(result, by = as.data.frame(ldf[[i]]['result.classification']), FUN = mean)
 aggregate(result >= .80, by = as.data.frame(ldf[[i]]['result.classification']), FUN = mean)
 table(ldf[[i]]['result.classification'])
+
