@@ -55,26 +55,6 @@ sample1$sample <- "A"; sample2$sample <- "B"
 data <- rbind(sample1, sample2)
 data$profile <- c(classifications$S1_G5, classifications$S2_G5)  
 
-####################      EVALUATE THE MEAN DIFFERENCES IN AGE               ####################
-table(data$Gender, data$profile)
-chisq.test(data$Gender, data$profile)
-
-####################      EVALUATE THE MEAN DIFFERENCES IN AGE               ####################
-# test if there is a main effect for sample or for profile
-model <- aov(data$Age ~ data$sample * data$profile)
-summary(model)
-etaSquared(model, type = 2, anova = TRUE) %>% round(2)
-pairwise.t.test(data$Age, data$profile, p.adj = "bonf")
-x <- TukeyHSD(model); x$`data$profile` %>% round(2)
-
-aggregate(data$Age, 
-          by = as.data.frame(data$profile), FUN = mean)
-
-aggregate(data$Age, 
-          by = as.data.frame(data$profile), FUN = sd)
-
-table(data$profile)
-
 ####################      EVALUATE THE MEAN DIFFERENCES IN DIFFICULTY AND DISTRESS               ####################
 # test if there is a main effect for sample or for profile
 model <- aov(((data$Difficulty + data$Stress)/2) ~ data$sample * data$profile)
@@ -83,12 +63,36 @@ etaSquared(model, type = 2, anova = TRUE) %>% round(2)
 pairwise.t.test(((data$Difficulty + data$Stress)/2), data$profile, p.adj = "bonf")
 x <- TukeyHSD(model); x$`data$profile` %>% round(2)
 
-
 aggregate(((data$Difficulty + data$Stress)/2), 
                  by = as.data.frame(data$profile), FUN = mean)
 
 aggregate(((data$Difficulty + data$Stress)/2), 
           by = as.data.frame(data$profile), FUN = sd)
+
+
+# Sample A
+temp <- data
+data <- data[data$sample == 'A',]
+aggregate(((data$Difficulty + data$Stress)/2), 
+          by = as.data.frame(data$profile), FUN = mean)
+model <- aov(((data$Difficulty + data$Stress)/2) ~ data$profile)
+summary(model)
+etaSquared(model, type = 2, anova = TRUE) %>% round(2)
+pairwise.t.test(((data$Difficulty + data$Stress)/2), data$profile, p.adj = "bonf")
+x <- TukeyHSD(model); x$`data$profile` %>% round(2)
+data <- temp
+
+# Sample B
+data <- data[data$sample == 'B',]
+aggregate(((data$Difficulty + data$Stress)/2), 
+          by = as.data.frame(data$profile), FUN = mean)
+model <- aov(((data$Difficulty + data$Stress)/2) ~ data$profile)
+summary(model)
+etaSquared(model, type = 2, anova = TRUE) %>% round(2)
+pairwise.t.test(((data$Difficulty + data$Stress)/2), data$profile, p.adj = "bonf")
+x <- TukeyHSD(model); x$`data$profile` %>% round(2)
+data <- temp
+
 
 
 res.aov3 <- aov(x ~  + S1_G5 + Var1 + S1_G5:Var1, data = x)
@@ -117,6 +121,32 @@ aggregate(data$RCA,
 aggregate(data$RCA, 
           by = as.data.frame(data$profile), FUN = sd)
 
+# Sample A
+temp <- data
+data <- data[data$sample == 'A',]
+aggregate(data$RCA, 
+          by = as.data.frame(data$profile), FUN = mean)
+model <- aov(data$RCA ~ data$profile)
+summary(model)
+etaSquared(model, type = 2, anova = TRUE) %>% round(2)
+pairwise.t.test(data$RCA, data$profile, p.adj = "bonf")
+x <- TukeyHSD(model); x$`data$profile` %>% round(2)
+data <- temp
+
+model <- chisq.test(data$profile, data$RCA)
+chisq.posthoc.test(table(data$profile, data$RCA))
+
+# Sample B
+data <- data[data$sample == 'B',]
+aggregate(data$RCA, 
+          by = as.data.frame(data$profile), FUN = mean)
+model <- aov(data$RCA ~ data$profile)
+summary(model)
+etaSquared(model, type = 2, anova = TRUE) %>% round(2)
+pairwise.t.test(data$RCA, data$profile, p.adj = "bonf")
+x <- TukeyHSD(model); x$`data$profile` %>% round(2)
+data <- temp
+
 res.aov3 <- aov(x ~  + S1_G5 + Var1 + S1_G5:Var1, data = x)
 summary(res.aov3)
 
@@ -127,4 +157,5 @@ ggplot(data, aes(x=RCA, color=profile)) + facet_grid(profile ~ .) +
   geom_histogram(fill="white", position="dodge")+
   theme(legend.position="top")
 
+table(data$RCA[data$sample == 'B'], data$profile[data$sample == 'B'])
 

@@ -1,7 +1,7 @@
 ####################      RELEVANT LIBRARIES AND WORKING DIRECTORY                ####################
 # last update - 16-11-2020; 12.11.2020
 remove(list = ls())
-library(dplyr); library(ggplot2); library(lsr); library(reshape2); library(ggpubr)
+library(dplyr); library(ggplot2); library(lsr); library(reshape2); library(ggpubr); library(gridExtra)
 
 ####################      LOAD THE CLUSTERING SOLUTIONS                ####################
 setwd("C:\\Users\\owner\\Desktop\\Study 4\\Mclust outputs\\Clustering results")
@@ -73,57 +73,51 @@ df
 
 ####################      PLOT GRAPH                ####################
 
-dat <- aggregate(df[c('Rm', 'Ri', 'Rd', 'Lp', 'Ls', 'Lo', 'La', 'Iu', 'Ii', 'Ie', 
-                      'LR', 'LI', 'II', 'total')], 
+dat <- aggregate(df[c('Rm', 'Ri', 'Rd', 'Lp', 'Ls', 'Lo', 'La', 'Iu', 'Ii', 'Ie')], 
           by = as.data.frame(df$`classifications$S1_G5`), FUN = mean)
 
 dat <- melt(dat)
-colnames(dat) <- c('moder', 'variable', 'value')
+colnames(dat) <- c('Profile', 'Category', 'Z')
 
 
 map = setNames(c("DB-Specific", "Rm-Specific", "Ri-Specific", "Information-Related", "Ie-Dominant"), c('A', 'B', 'C', 'D', 'E'))
-dat$moder <- map[unlist(dat$moder)]
+dat$Profile <- map[unlist(dat$Profile)]
 
-# create a plot for LR only
-LR <- dat[dat$variable == 'LR',]
-g <- ggplot(data = LR, aes(x=moder, y = value))
-g1 <- g + geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
+#create a plot for the first profile
+profile1 <- dat[dat$Profile == 'DB-Specific', ]
 
-# create a plot for LI only
-LI <- dat[dat$variable == 'LI',]
-g <- ggplot(data = LI, aes(x=moder, y = value))
-g2 <- g + geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
-
-# create a plot for II only
-II <- dat[dat$variable == 'II',]
-g <- ggplot(data = II, aes(x=moder, y = value))
-g3 <- g + geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
-
-# create a plot for II only
-total <- dat[dat$variable == 'total',]
-g <- ggplot(data = total, aes(x=moder, y = value))
-g4 <- g + geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
-
-ggarrange(g1, g2, g3, g4, 
-          labels = c("LR", "LI", "II", "total"),
-          ncol = 2, nrow = 2)
+g1 <- ggplot(data = profile1, aes(x = Category, y = Z))
+g1 <- g1 + geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
 
 
-# create a plot for motivation only
+#create a plot for the second profile
+profile2 <- dat[dat$Profile == 'Ri-Specific', ]
+
+g2 <- ggplot(data = profile2, aes(x = Category, y = Z))
+g2 <- g2 + geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
+g2
+
+grid.arrange(g1, g2, nrow = 1)
+
+z# create a plot for motivation only
 rm <- dat[dat$variable == 'Rm',]
 g <- ggplot(data = rm, aes(x=moder, y = value))
-g +   geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
+g1 <- g +   geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
 
 # create a plot for indecisiveness beliefs only
 Ri <- dat[dat$variable == 'Ri',]
 g <- ggplot(data = Ri, aes(x=moder, y = value))
-g +   geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
+g2 <- g +   geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
 
 # create a plot for dysfunctional beliefs only
 Rd <- dat[dat$variable == 'Rd',]
 g <- ggplot(data = Rd, aes(x=moder, y = value))
-g +   geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
+g3 <- g +   geom_bar(stat="identity", position=position_dodge()) + scale_fill_grey()
 
+
+ggarrange(g1, g2, g3,
+          labels = c("LR", "LI", "II"),
+          ncol = 3, nrow = 1)
 
 g <- ggplot(data = dat, aes(x=variable, y = value, fill = moder))
 g +   geom_bar(stat="identity", position=position_dodge())
